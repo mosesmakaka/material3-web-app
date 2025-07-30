@@ -1,0 +1,694 @@
+/*
+ * Global style definitions for the Material 3 Expressive demo site.
+ * The CSS variables defined here control colors, shapes and spacing
+ * throughout the application.  They can be overridden at runtime by the
+ * JavaScript to support dynamic colors and dark mode.  Many values are
+ * inspired by the official Material 3 palettes, but feel free to tweak
+ * them to suit your own branding.
+ */
+
+/* Base color definitions for the light theme. */
+:root {
+  /* Primary color and its on‑color (for text on primary surfaces). */
+  --primary: #6750A4;
+  --on-primary: #FFFFFF;
+  --primary-container: #EADDFF;
+  --on-primary-container: #21005E;
+  /* Secondary palette. */
+  --secondary: #625B71;
+  --on-secondary: #FFFFFF;
+  --secondary-container: #E8DEF8;
+  --on-secondary-container: #1D192B;
+  /* Tertiary palette. */
+  --tertiary: #7D5260;
+  --on-tertiary: #FFFFFF;
+  --tertiary-container: #FFD8E4;
+  --on-tertiary-container: #31111D;
+  /* Neutral surfaces. */
+  --background: #FFFBFE;
+  --on-background: #1C1B1E;
+  --surface: #FFFBFE;
+  --on-surface: #1C1B1E;
+  --surface-variant: #E7E0EC;
+  --on-surface-variant: #49454F;
+  /* Outlines and elevation. */
+  --outline: #79757F;
+  --shadow: rgba(0, 0, 0, 0.3);
+  /* Radii for expressive shapes. */
+  --radius-small: 8px;
+  --radius-medium: 16px;
+  --radius-large: 28px;
+  --radius-full: 999px;
+  /* Spacing scale. */
+  --spacing-1: 8px;
+  --spacing-2: 16px;
+  --spacing-3: 24px;
+  --spacing-4: 32px;
+
+  /* Typographic control variables for the Roboto Flex variable font.  These
+     default values correspond to a regular weight and normal width.  The
+     tools section adjusts these via JavaScript to demonstrate how type
+     can adapt to user preference. */
+  --font-weight: 400;
+  --font-width: 100;
+}
+
+/* Dark theme overrides.  These values are chosen to provide sufficient
+   contrast when the system prefers a dark color scheme.  The overrides
+   apply automatically via the media query but can also be toggled via
+   JavaScript by adding/removing the `dark-theme` class on the root. */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #D0BCFF;
+    --on-primary: #381E72;
+    --primary-container: #4F378B;
+    --on-primary-container: #EADDFF;
+    --secondary: #CCC2DC;
+    --on-secondary: #332D41;
+    --secondary-container: #4A4458;
+    --on-secondary-container: #E8DEF8;
+    --tertiary: #EFB8C8;
+    --on-tertiary: #492532;
+    --tertiary-container: #633B48;
+    --on-tertiary-container: #FFD8E4;
+    --background: #1C1B1F;
+    --on-background: #E6E1E5;
+    --surface: #1C1B1F;
+    --on-surface: #E6E1E5;
+    --surface-variant: #49454F;
+    --on-surface-variant: #CAC4D0;
+    --outline: #948F99;
+    --shadow: rgba(0, 0, 0, 0.6);
+  }
+}
+
+/* When `.dark-theme` is added to the html element, force dark colors. */
+html.dark-theme {
+  --primary: #D0BCFF;
+  --on-primary: #381E72;
+  --primary-container: #4F378B;
+  --on-primary-container: #EADDFF;
+  --secondary: #CCC2DC;
+  --on-secondary: #332D41;
+  --secondary-container: #4A4458;
+  --on-secondary-container: #E8DEF8;
+  --tertiary: #EFB8C8;
+  --on-tertiary: #492532;
+  --tertiary-container: #633B48;
+  --on-tertiary-container: #FFD8E4;
+  --background: #1C1B1F;
+  --on-background: #E6E1E5;
+  --surface: #1C1B1F;
+  --on-surface: #E6E1E5;
+  --surface-variant: #49454F;
+  --on-surface-variant: #CAC4D0;
+  --outline: #948F99;
+  --shadow: rgba(0, 0, 0, 0.6);
+}
+
+/* Reset default margins and set the base font family. */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Use the Roboto Flex variable font first with Roboto as a fallback. */
+  font-family: 'Roboto Flex', 'Roboto', sans-serif;
+  line-height: 1.5;
+  background-color: var(--background);
+  color: var(--on-background);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  /* Reserve space for the bottom navigation bar so that content isn't
+     obscured.  The bar height is defined below. */
+  padding-bottom: 72px;
+
+  /* Apply dynamic font variation settings.  These values are updated
+     via JavaScript when the user moves the weight and width sliders.  The
+     optical size is fixed at 14 to provide good legibility across the
+     site. */
+  font-variation-settings: 'wght' var(--font-weight), 'wdth' var(--font-width), 'opsz' 14;
+}
+
+/* Bottom navigation bar styling.  This nav sits at the bottom of the
+   viewport and contains three equal‑width buttons for navigating the
+   primary sections.  The active item is highlighted with the primary
+   colour. */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 72px;
+  background-color: var(--surface);
+  border-top: 1px solid var(--outline);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 20;
+}
+
+.bottom-nav .nav-item {
+  background: none;
+  border: none;
+  outline: none;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--on-surface-variant);
+  font: inherit;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.bottom-nav .nav-item.active {
+  color: var(--primary);
+}
+
+.nav-icon {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+.nav-label {
+  font-size: 12px;
+  line-height: 1;
+}
+
+/* Top app bar styling.  Fixes the bar at the top and applies a
+   shadow/elevation. */
+.top-app-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 64px;
+  background-color: var(--primary);
+  color: var(--on-primary);
+  box-shadow: 0 2px 4px var(--shadow);
+  display: flex;
+  align-items: center;
+  z-index: 10;
+}
+.bar-content {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--spacing-3);
+}
+.top-app-bar .logo {
+  font-weight: 700;
+}
+.top-app-bar nav a {
+  color: var(--on-primary);
+  text-decoration: none;
+  margin-left: var(--spacing-3);
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+.top-app-bar nav a:hover {
+  opacity: 0.8;
+}
+
+/* Styling for the dark mode toggle button.  A plain HTML button is used
+   instead of a Material component so that click events are guaranteed to
+   propagate.  It still uses Material colours and shape tokens. */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-1);
+  border: none;
+  border-radius: var(--radius-full);
+  background-color: var(--secondary-container);
+  color: var(--on-secondary-container);
+  padding: 0 var(--spacing-2);
+  height: 40px;
+  font: inherit;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.theme-toggle:hover {
+  background-color: var(--secondary);
+  color: var(--on-secondary);
+}
+.theme-toggle-icon {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+}
+
+/* Hero section: occupies the full width and uses a background image with
+   overlay.  The border on the bottom softens the transition into the next
+   section. */
+.hero {
+  position: relative;
+  background-image: url('images/hero-bg.png');
+  background-size: cover;
+  background-position: center;
+  color: var(--on-primary-container);
+  padding: 160px 20px 120px 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin-top: 64px; /* offset for the fixed app bar */
+  border-bottom-left-radius: var(--radius-large);
+  border-bottom-right-radius: var(--radius-large);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 0;
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 800px;
+}
+.hero h1 {
+  margin-bottom: var(--spacing-2);
+  /* Use the on‑primary colour to ensure high contrast against the dark
+     overlay. */
+  color: var(--on-primary);
+}
+.hero p {
+  margin-bottom: var(--spacing-3);
+  /* Use the on‑primary colour to ensure high contrast against the dark
+     overlay. */
+  color: var(--on-primary);
+}
+.hero md-filled-button {
+  --md-filled-button-container-color: var(--primary-container);
+  --md-filled-button-label-text-color: var(--on-primary-container);
+}
+
+/* Features section. */
+.features {
+  padding: var(--spacing-4);
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+.features h2 {
+  margin-bottom: var(--spacing-3);
+  text-align: center;
+}
+.features .cards {
+  display: grid;
+  gap: var(--spacing-3);
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.features .card {
+  background-color: var(--surface-variant);
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-large);
+  padding: var(--spacing-3);
+  box-shadow: 0 1px 3px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--spacing-2);
+  transition: transform 0.2s, box-shadow 0.2s;
+
+  /* Start hidden and offset.  JavaScript will animate cards into view
+     as the user scrolls. */
+  opacity: 0;
+  transform: translateY(40px);
+}
+.features .card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 8px var(--shadow);
+}
+.card-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-container);
+  color: var(--on-primary-container);
+  border-radius: var(--radius-full);
+}
+.card h3 {
+  color: var(--on-surface);
+}
+.card p {
+  color: var(--on-surface-variant);
+  flex-grow: 1;
+}
+
+/* Components showcase section. */
+.components {
+  padding: var(--spacing-4);
+  background-color: var(--background);
+  color: var(--on-background);
+}
+.components h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-3);
+}
+.component-group {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Button group styling. */
+.button-group {
+  display: inline-flex;
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  background-color: var(--surface-variant);
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.button-group .group-button {
+  --md-filled-button-container-color: transparent;
+  --md-filled-button-label-text-color: var(--on-surface-variant);
+  border-radius: 0;
+  padding-left: var(--spacing-3);
+  padding-right: var(--spacing-3);
+  white-space: nowrap;
+}
+.button-group .group-button:not(:last-child) {
+  border-right: 1px solid var(--outline);
+}
+
+/* FAB menu styling.  The menu is hidden by default and becomes visible
+   when the `.open` class is applied via JavaScript. */
+.fab-container {
+  position: relative;
+}
+.primary-fab {
+  --md-fab-container-color: var(--primary);
+  --md-fab-icon-color: var(--on-primary);
+}
+.fab-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  bottom: 56px;
+  right: 0;
+  display: none;
+  flex-direction: column;
+  gap: var(--spacing-2);
+}
+.fab-menu.open {
+  display: flex;
+}
+.fab-menu li {
+  display: flex;
+}
+.fab-menu md-filled-button {
+  --md-filled-button-container-color: var(--secondary);
+  --md-filled-button-label-text-color: var(--on-secondary);
+}
+
+/* Loading indicator demo. */
+.loading-demo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-2);
+  padding: var(--spacing-3);
+  background-color: var(--surface-variant);
+  border-radius: var(--radius-medium);
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.loading-demo md-circular-progress {
+  --md-circular-progress-active-indicator-color: var(--primary);
+}
+
+/* Theme control section. */
+.theme-controls {
+  padding: var(--spacing-4);
+  background-color: var(--surface);
+  color: var(--on-surface);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+.theme-controls h2 {
+  text-align: center;
+}
+.theme-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+}
+.theme-picker input[type="color"] {
+  width: 64px;
+  height: 32px;
+  border: none;
+  border-radius: var(--radius-small);
+  overflow: hidden;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+}
+.theme-picker input[type="color"]::-webkit-color-swatch-wrapper {
+  padding: 0;
+}
+.theme-picker input[type="color"]::-webkit-color-swatch {
+  border: 1px solid var(--outline);
+  border-radius: var(--radius-small);
+}
+
+/* Footer styling. */
+.site-footer {
+  padding: var(--spacing-2);
+  background-color: var(--surface);
+  color: var(--on-surface-variant);
+  text-align: center;
+  font-size: 0.875rem;
+  margin-top: auto;
+}
+
+/* Utility classes for responsiveness. */
+@media (max-width: 600px) {
+  .top-app-bar nav a {
+    margin-left: var(--spacing-2);
+    font-size: 0.875rem;
+  }
+  .top-app-bar md-filled-tonal-button {
+    --md-filled-tonal-button-container-height: 36px;
+  }
+  .hero {
+    padding: 120px 20px 80px;
+  }
+  .features .cards {
+    grid-template-columns: 1fr;
+  }
+  .component-group {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .button-group {
+    width: 100%;
+    justify-content: space-around;
+  }
+}
+
+/* ----------------------------------------------------------------------
+ * Expressive tools styles
+ *
+ * The tools section contains range sliders for corner radius, font
+ * weight and font width.  Each slider is laid out vertically with a
+ * descriptive label.  We style the input elements to reflect the
+ * Material aesthetic by customizing the thumb and track colours.  On
+ * narrow screens the controls stack; on wider screens they appear
+ * inline. */
+.expressive-tools {
+  padding: var(--spacing-4);
+  background-color: var(--background);
+  color: var(--on-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-3);
+}
+.expressive-tools h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-3);
+}
+.tool-group {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-4);
+  justify-content: center;
+}
+.tool {
+  flex: 1 1 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-1);
+}
+.tool input[type="range"] {
+  width: 100%;
+  accent-color: var(--primary);
+  cursor: pointer;
+}
+
+/* Live updates styles.  Cards are arranged in a responsive grid and
+   given subtle elevation.  The progress bar uses the Material linear
+   progress component. */
+.live-updates {
+  padding: var(--spacing-4);
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+.live-updates h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-3);
+}
+.live-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-3);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.live-card {
+  background-color: var(--surface-variant);
+  color: var(--on-surface-variant);
+  border-radius: var(--radius-medium);
+  padding: var(--spacing-3);
+  box-shadow: 0 1px 3px var(--shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-2);
+  /* Start hidden for scroll animation */
+  opacity: 0;
+  transform: translateY(40px);
+}
+.live-card h3 {
+  color: var(--on-surface);
+}
+.live-card p {
+  color: var(--on-surface-variant);
+}
+
+/* Gallery styles.  Use a grid of responsive items. */
+.gallery {
+  padding: var(--spacing-4);
+  background-color: var(--background);
+  color: var(--on-background);
+}
+.gallery h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-3);
+}
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-3);
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-large);
+  box-shadow: 0 1px 3px var(--shadow);
+  background-color: var(--surface);
+  /* Hidden for scroll animation */
+  opacity: 0;
+  transform: translateY(40px);
+}
+.gallery-item img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.gallery-item figcaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: var(--spacing-1);
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  font-size: 0.875rem;
+  text-align: center;
+}
+
+/* About section styles.  The layout uses a flexbox to align the
+   avatar next to the text. */
+.about {
+  padding: var(--spacing-4);
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+.about h2 {
+  text-align: center;
+  margin-bottom: var(--spacing-3);
+}
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-3);
+  align-items: center;
+  justify-content: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.about-content img {
+  width: 96px;
+  height: 96px;
+  border-radius: var(--radius-full);
+  box-shadow: 0 1px 3px var(--shadow);
+}
+.about-text {
+  flex: 1;
+  min-width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-1);
+}
+
+/* Dark theme overrides for the new sections.  These ensure
+   sufficient contrast and maintain the immersive experience when dark
+   mode is toggled. */
+html.dark-theme .expressive-tools,
+html.dark-theme .gallery,
+html.dark-theme .live-updates,
+html.dark-theme .about {
+  background-color: var(--surface);
+  color: var(--on-surface);
+}
+html.dark-theme .live-card,
+html.dark-theme .gallery-item,
+html.dark-theme .features .card,
+html.dark-theme .loading-demo,
+html.dark-theme .button-group {
+  background-color: var(--surface-variant);
+  color: var(--on-surface-variant);
+}

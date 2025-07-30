@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!--
+      This page is the entry point for the Material&nbsp;3 Expressive demo site.  It
+      leverages the open‑source Material Web components and a handful of
+      custom CSS variables to showcase the latest Material 3 Expressive
+      design guidance.  The goal of this demo is two‑fold: first, to
+      illustrate how dynamic color, updated shapes and generous typography can
+      make a web experience feel personal and emotive, and second, to provide
+      a set of interactive components that can be reused in your own projects.
+    -->
+    <title>Material 3 Expressive Web App Demo</title>
+    <!-- Google Fonts: Roboto for type; this reflects the default font used
+         throughout Material Design. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Load the variable Roboto Flex font.  Material 3 Expressive uses the
+         Roboto Flex variable font to enable fine‑grained control over weight
+         and width.  These sliders in the Tools section rely on this font. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth@8..144,200..1000,75..125&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Import map that resolves all @material/web imports to the esm.run CDN.
+         This allows us to use the latest Material web components without a
+         build step. -->
+    <script type="importmap">
+      {
+        "imports": {
+          "@material/web/": "https://esm.run/@material/web/"
+        }
+      }
+    </script>
+    <!-- Material components and typography scale.  The typographic scale is
+         adopted as a Constructable StyleSheet so that display, headline and
+         body styles are available via CSS classes (e.g. md‑typescale‑display‑large). -->
+    <script type="module">
+      import '@material/web/all.js';
+      import { styles as typescaleStyles } from '@material/web/typography/md-typescale-styles.js';
+
+      // Adopt the type scale for the entire document.  Without this the
+      // Material type classes won’t render.
+      document.adoptedStyleSheets = [
+        ...document.adoptedStyleSheets,
+        typescaleStyles.styleSheet,
+      ];
+    </script>
+    <!-- Site‑specific styles.  These are kept in a separate file so that
+         developers can easily override variables or extend styles without
+         touching the markup. -->
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Top app bar: a simple header that pins to the top of the viewport.  It
+         uses CSS variables for color so that it responds to theme changes. -->
+    <header class="top-app-bar">
+      <div class="bar-content">
+        <span class="logo md-typescale-title-large">M3 Expressive</span>
+        <!-- Remove the top navigation links in favor of a bottom navigation bar.
+             We keep only the logo here, and the dark mode toggle remains
+             available. -->
+        <!-- Dark mode toggle.  A plain button is used here instead of a Material
+             component to guarantee event handling across browsers.  It still
+             responds to theme changes via CSS variables. -->
+        <button id="darkModeToggle" class="theme-toggle" type="button">
+          <span id="darkModeLabel">Dark mode</span>
+          <svg
+            viewBox="0 0 24 24"
+            aria-hidden="true"
+            focusable="false"
+            class="theme-toggle-icon"
+          >
+            <path
+              d="M12 2a9.93 9.93 0 0 0-4.56 1.06A10 10 0 0 0 12 22a10 10 0 0 0 6.63-17.56A8 8 0 0 1 12 2zm0 18a8 8 0 1 1 5.66-13.66A9.99 9.99 0 0 1 12 20z"
+            />
+          </svg>
+        </button>
+      </div>
+    </header>
+    <!-- Hero section: introduces the app with expressive type and a vibrant
+         background.  A semi‑transparent overlay ensures text contrast. -->
+    <section class="hero" role="banner">
+      <div class="hero-content">
+        <h1 class="md-typescale-display-large">Feel the Expression</h1>
+        <p class="md-typescale-body-large">
+          Material 3 Expressive turns a static interface into something
+          responsive, emotive and inclusive. It applies dynamic color
+          schemes to personalize an app's look and feel, introduces
+          motion physics for natural interactions, and refreshes shapes
+          to harmonize with typography.
+        </p>
+        <md-filled-button id="getStartedBtn">Get started</md-filled-button>
+      </div>
+    </section>
+    <!-- Features section: describes the core principles behind Material 3
+         Expressive.  Each feature is encapsulated in a card-like element with
+         generous padding and rounded corners. -->
+    <section id="features" class="features" aria-labelledby="features-heading">
+      <h2 id="features-heading" class="md-typescale-headline-medium">Key features</h2>
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7Zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5S10.62 6.5 12 6.5s2.5 1.12 2.5 2.5S13.38 11.5 12 11.5Z"
+              />
+            </svg>
+          </div>
+          <h3 class="md-typescale-title-medium">Dynamic color</h3>
+          <p class="md-typescale-body-medium">
+            Choose your own accent color and let the system generate an
+            accessible palette. Dynamic color adapts brand colors to user
+            preferences for a unique experience.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 4a8 8 0 0 1 8 8c0 2.35-.96 4.47-2.5 6l-5.5-5.5V4.26c.65-.17 1.32-.26 2-.26Zm6.62 12.45A9.97 9.97 0 0 1 12 22C6.48 22 2 17.52 2 12c0-3.2 1.58-6.02 4-7.74V9l6 6h6.62Z"
+              />
+            </svg>
+          </div>
+          <h3 class="md-typescale-title-medium">Motion physics</h3>
+          <p class="md-typescale-body-medium">
+            Animations feel alive, fluid and natural thanks to the new motion
+            physics system. It replaces traditional easing curves and
+            durations with spring‑like dynamics that react to user input.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M12 2a5 5 0 0 1 5 5c0 1.38-.56 2.63-1.46 3.54l-3.07 3.07a.996.996 0 0 1-1.41 0L7.46 10.54A5.003 5.003 0 0 1 12 2Zm0 15c-5 0-9 4-9 4v1h18v-1s-4-4-9-4Z"
+              />
+            </svg>
+          </div>
+          <h3 class="md-typescale-title-medium">Shapes & typography</h3>
+          <p class="md-typescale-body-medium">
+            The shape system has been overhauled with dozens of new shapes and
+            harmonized corner radii. Combined with the modern type scale,
+            this creates rhythm and hierarchy.
+          </p>
+        </div>
+        <div class="card">
+          <div class="card-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h8l4 4v-4h4c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2Zm-2 12H6V8h12v8Z"
+              />
+            </svg>
+          </div>
+          <h3 class="md-typescale-title-medium">Inclusivity & accessibility</h3>
+          <p class="md-typescale-body-medium">
+            Every element in Material 3 Expressive is built with accessibility in
+            mind. Colours, motion and components are designed to work for as
+            many people as possible.
+          </p>
+        </div>
+      </div>
+    </section>
+    <!-- Components showcase: demonstrate some of the new and updated M3
+         Expressive components, including button groups, FAB menus and
+         loading indicators. -->
+    <section id="components" class="components" aria-labelledby="components-heading">
+      <h2 id="components-heading" class="md-typescale-headline-medium">
+        Interactive components
+      </h2>
+      <div class="component-group">
+        <!-- Button group: groups multiple buttons into a pill‑shaped container.  It
+             approximates the new button group component introduced in M3
+             Expressive【910172856191492†L169-L175】. -->
+        <div class="button-group" role="group" aria-label="Button group example">
+          <md-filled-button class="group-button">Today</md-filled-button>
+          <md-filled-button class="group-button">Week</md-filled-button>
+          <md-filled-button class="group-button">Month</md-filled-button>
+        </div>
+        <!-- FAB menu: clicking the FAB reveals additional actions.  This menu
+             replaces the old speed dial with a more expressive interaction
+             pattern【910172856191492†L176-L181】. -->
+        <div class="fab-container">
+          <md-fab id="fab" aria-label="Create" class="primary-fab">
+            <svg slot="icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <path d="M12 4v8m0 0v8m0-8h8m-8 0H4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </md-fab>
+          <ul id="fabMenu" class="fab-menu" aria-label="FAB menu actions">
+            <li><md-filled-button id="fabAction1">Action 1</md-filled-button></li>
+            <li><md-filled-button id="fabAction2">Action 2</md-filled-button></li>
+            <li><md-filled-button id="fabAction3">Action 3</md-filled-button></li>
+          </ul>
+        </div>
+        <!-- Loading indicator: demonstrates the new expressive loading indicator
+             component【910172856191492†L189-L194】. -->
+        <div class="loading-demo">
+          <md-circular-progress indeterminate></md-circular-progress>
+          <span class="md-typescale-body-medium">Loading…</span>
+        </div>
+      </div>
+    </section>
+    <!-- Theme controls: allow users to customise the accent color and toggle
+         dark mode.  This demonstrates the dynamic color feature of M3
+         Expressive while giving users control over the look and feel. -->
+    <section id="theme" class="theme-controls" aria-labelledby="theme-heading">
+      <h2 id="theme-heading" class="md-typescale-headline-medium">Theme &amp; personalization</h2>
+      <div class="theme-picker">
+        <label for="colorPicker" class="md-typescale-title-medium">Accent color</label>
+        <input type="color" id="colorPicker" name="colorPicker" value="#6750A4" aria-describedby="colorHelp" />
+        <p id="colorHelp" class="md-typescale-body-small">Pick your favourite color and the theme adapts automatically.</p>
+      </div>
+    </section>
+
+    <!-- Expressive tools: provide interactive controls to explore the power
+         of Material 3 Expressive.  Users can adjust the global shape
+         corner radius and the typographic weight/width.  These sliders
+         demonstrate how variable fonts and adaptive shapes can make an
+         interface feel more personal. -->
+    <section id="tools" class="expressive-tools" aria-labelledby="tools-heading">
+      <h2 id="tools-heading" class="md-typescale-headline-medium">Expressive tools</h2>
+      <div class="tool-group">
+        <div class="tool">
+          <label for="radiusSlider" class="md-typescale-title-medium">Corner radius</label>
+          <input type="range" id="radiusSlider" name="radiusSlider" min="0" max="32" value="12" step="1" aria-describedby="radiusHelp" />
+          <p id="radiusHelp" class="md-typescale-body-small">Adjust the roundness of cards, buttons and surfaces.</p>
+        </div>
+        <div class="tool">
+          <label for="weightSlider" class="md-typescale-title-medium">Font weight</label>
+          <input type="range" id="weightSlider" name="weightSlider" min="200" max="900" value="400" step="50" aria-describedby="weightHelp" />
+          <p id="weightHelp" class="md-typescale-body-small">Change the thickness of the Roboto Flex letters.</p>
+        </div>
+        <div class="tool">
+          <label for="widthSlider" class="md-typescale-title-medium">Font width</label>
+          <input type="range" id="widthSlider" name="widthSlider" min="75" max="125" value="100" step="1" aria-describedby="widthHelp" />
+          <p id="widthHelp" class="md-typescale-body-small">Stretch or condense the Roboto Flex letters.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live updates: showcase the glanceable and helpful information
+         philosophy of Material 3 Expressive.  Real‑time data flows into
+         these cards: the current time in Berlin, GitHub repository stats
+         and a progress indicator.  This section emphasises how dynamic
+         content keeps users informed without requiring full attention【148115298754705†L333-L344】. -->
+    <section id="live" class="live-updates" aria-labelledby="live-heading">
+      <h2 id="live-heading" class="md-typescale-headline-medium">Live updates</h2>
+      <div class="live-cards">
+        <div class="live-card" id="timeCard">
+          <h3 class="md-typescale-title-medium">Current time</h3>
+          <p class="md-typescale-display-small" id="clockDisplay">--:--:--</p>
+          <p class="md-typescale-body-small">Berlin local time updates every second.</p>
+        </div>
+        <div class="live-card" id="repoCard">
+          <h3 class="md-typescale-title-medium">Repo stats</h3>
+          <p class="md-typescale-title-large" id="starsDisplay">--</p>
+          <p class="md-typescale-body-small">Stars on GitHub</p>
+          <p class="md-typescale-title-large" id="forksDisplay">--</p>
+          <p class="md-typescale-body-small">Forks</p>
+        </div>
+        <div class="live-card" id="progressCard">
+          <h3 class="md-typescale-title-medium">Progress</h3>
+          <md-linear-progress id="liveProgress" max="100" value="0"></md-linear-progress>
+          <p class="md-typescale-body-small">A playful progress indicator that loops.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery section: displays expressive imagery that complements
+         the dynamic theme.  Images slide into view as the user
+         scrolls.  These visuals illustrate how colour and shape can be
+         used to create mood and depth. -->
+    <section id="gallery" class="gallery" aria-labelledby="gallery-heading">
+      <h2 id="gallery-heading" class="md-typescale-headline-medium">Gallery</h2>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="images/abstract.png" alt="Abstract organic shapes" />
+          <figcaption class="md-typescale-body-small">Abstract composition</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="images/swirl.png" alt="Swirling gradient" />
+          <figcaption class="md-typescale-body-small">Swirling gradient</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- About section: fetches developer details and repository metadata via
+         the internal GitHub API.  If the API fails (e.g. due to CORS),
+         fallback values are used. -->
+    <section id="about" class="about" aria-labelledby="about-heading">
+      <h2 id="about-heading" class="md-typescale-headline-medium">About this project</h2>
+      <div class="about-content">
+        <img id="avatarImg" src="images/avatar.png" alt="Developer avatar" />
+        <div class="about-text">
+          <p class="md-typescale-title-large" id="devName">Developer Name</p>
+          <p class="md-typescale-body-medium" id="devNickname">@nickname</p>
+          <p class="md-typescale-body-small">This project demonstrates Material 3 Expressive using web technologies. It uses the GitHub API to display repository information.</p>
+          <p class="md-typescale-body-small">Repo size: <span id="repoSize">-- KB</span></p>
+        </div>
+      </div>
+    </section>
+    <!-- Footer: a simple acknowledgement that this demo was created for a
+         hypothetical project. -->
+    <footer class="site-footer">
+      <p class="md-typescale-body-small">&copy; 2025 Material Expressive Demo. Built with ❤ and Material 3.</p>
+    </footer>
+
+    <!-- Bottom navigation bar: anchors to the main sections.  It stays
+         fixed to the bottom of the viewport and uses icons along with
+         labels to communicate each destination.  The active tab will be
+         highlighted via JavaScript when its section is in view. -->
+    <nav class="bottom-nav" aria-label="Primary">
+      <button class="nav-item" data-target="features" aria-label="Features">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: spark/star to represent features -->
+          <path d="M12 2l3.09 6.26 6.91 1.01-5 4.87L17.18 22 12 18.77 6.82 22 8 14.14l-5-4.87 6.91-1.01L12 2z" />
+        </svg>
+        <span class="nav-label">Features</span>
+      </button>
+      <button class="nav-item" data-target="components" aria-label="Components">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: squares to represent components library -->
+          <path d="M3 3h8v8H3V3zm0 10h8v8H3v-8zm10-10h8v8h-8V3zm0 10h8v8h-8v-8z" />
+        </svg>
+        <span class="nav-label">Components</span>
+      </button>
+      <button class="nav-item" data-target="tools" aria-label="Tools">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: gear for tools -->
+          <path d="M19.14 12.94l.79-.88-1.27-1.27-.88.79a6.87 6.87 0 0 0-1.54-.5l-.21-1.07H13v-1.68l1.07-.21c.19-.59.34-1.19.5-1.54l-.79-.88 1.27-1.27.88.79c.51-.18 1.01-.32 1.54-.5L16.5 3.86V2h-2.59l-.21 1.07a6.87 6.87 0 0 0-1.54.5l-.88-.79L9 4.85l.79.88c-.18.51-.32 1.01-.5 1.54L8.21 7.5H6.5v2.59l1.07.21c.18.51.32 1.01.5 1.54l-.79.88L8.97 14l.88-.79a6.87 6.87 0 0 0 1.54.5l.21 1.07H13v1.68l-1.07.21c-.18.51-.32 1.01-.5 1.54l.79.88L14 19.15l-.88-.79c-.51.18-1.01.32-1.54.5L11.5 21H9v-2.59l.21-1.07c-.51-.18-1.01-.32-1.54-.5L6.85 14l-1.27 1.27.79.88c-.18.51-.32 1.01-.5 1.54L3.86 16.5H2v2.59l1.07.21c.18.51.32 1.01.5 1.54l-.79.88L4.85 21l.88-.79c.51.18 1.01.32 1.54.5L7.5 22h2.59l.21-1.07c.51-.18 1.01-.32 1.54-.5l.88.79L14 21l-.88-.79c.18-.51.32-1.01.5-1.54l1.07-.21V16.5h1.68l.21 1.07c.51.18 1.01.32 1.54.5l.88-.79L21 17.15l-.79-.88c.18-.51.32-1.01.5-1.54l1.07-.21V13h-2.64zM12 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6z" />
+        </svg>
+        <span class="nav-label">Tools</span>
+      </button>
+      <button class="nav-item" data-target="live" aria-label="Live">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: update for live updates -->
+          <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z" />
+        </svg>
+        <span class="nav-label">Live</span>
+      </button>
+      <button class="nav-item" data-target="gallery" aria-label="Gallery">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: photo for gallery -->
+          <path d="M21 5H3a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h18a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2zm0 12H3V7h18v10zm-10-3l-2.5 3-3.5-4.5L3 17h18l-5-6z" />
+        </svg>
+        <span class="nav-label">Gallery</span>
+      </button>
+      <button class="nav-item" data-target="theme" aria-label="Theme">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: palette for theme -->
+          <path d="M12 4a8 8 0 0 0 0 16h6a2 2 0 0 0 2-2c0-1.1-.9-2-2-2h-2a2 2 0 0 1 0-4h2a2 2 0 0 0 2-2c0-4.42-3.58-8-8-8zM7 14a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm2-4a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z" />
+        </svg>
+        <span class="nav-label">Theme</span>
+      </button>
+      <button class="nav-item" data-target="about" aria-label="About">
+        <svg viewBox="0 0 24 24" class="nav-icon" aria-hidden="true">
+          <!-- Icon: info for about -->
+          <path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 15h-1v-6h2v6zm0-8h-1V7h2v2z" />
+        </svg>
+        <span class="nav-label">About</span>
+      </button>
+    </nav>
+    <!-- Application logic.  Externalising the script keeps the HTML easier to
+         read and maintain. -->
+    <!-- Load the application logic.  The script is included as a classic
+         script (not a module) because modules can fail to execute when
+         served via file:// URLs. -->
+    <script src="script.js"></script>
+  </body>
+</html>
